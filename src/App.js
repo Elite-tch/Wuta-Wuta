@@ -9,7 +9,8 @@ import {
   Settings,
   User,
   Zap,
-  Wallet
+  Wallet,
+  Activity
 } from 'lucide-react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -17,6 +18,7 @@ import CreateArt from './components/CreateArt';
 import Gallery from './components/Gallery';
 import EvolutionLab from './components/EvolutionLab';
 import MuseDAO from './components/MuseDAO';
+import TransactionHistory from './components/TransactionHistory';
 import { useMuseStore } from './store/museStore';
 import { useWalletStore } from './store/walletStore';
 import './App.css';
@@ -39,6 +41,7 @@ const App = () => {
     { id: 'gallery', name: 'Gallery', icon: Gallery },
     { id: 'evolve', name: 'Evolution Lab', icon: Sparkles },
     { id: 'dao', name: 'Muse DAO', icon: Zap },
+    { id: 'transactions', name: 'Transactions', icon: Activity },
     { id: 'settings', name: 'Settings', icon: Settings },
   ];
 
@@ -52,6 +55,8 @@ const App = () => {
         return <EvolutionLab />;
       case 'dao':
         return <MuseDAO />;
+      case 'transactions':
+        return <TransactionHistory />;
       case 'settings':
         return <div>Settings</div>;
       default:
