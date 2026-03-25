@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Gallery as GalleryIcon,
+  Image as GalleryIcon,
   LayoutDashboard,
   Sparkles,
   User,
   History,
   FileText
 } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
+
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Gallery from './components/Gallery';
@@ -19,8 +21,9 @@ import PromptHistorySidebar from './components/PromptHistorySidebar';
 import CommandPalette from './components/CommandPalette';
 import MobileBottomNav from './components/MobileBottomNav';
 import ErrorBoundary from './components/ErrorBoundary';
+import NotFound from './components/NotFound';
 import { useWalletStore } from './store/walletStore';
-import { Toaster } from 'react-hot-toast';
+import { useMuseStore } from './store/museStore';
 
 const navigation = [
   { id: 'gallery', name: 'Gallery', icon: GalleryIcon },
@@ -31,7 +34,8 @@ const navigation = [
 ];
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState('gallery');
+  // const [activeTab, setActiveTab] = useState('gallery');
+  const [activeTab, setActiveTab] = useState('unknown');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [currentPrompt, setCurrentPrompt] = useState('');
@@ -90,7 +94,7 @@ const App = () => {
       case 'transactions':
         return <TransactionHistory />;
       default:
-        return <Gallery />;
+        return <NotFound onReturn={handleTabChange} />;
     }
   };
 
@@ -109,7 +113,7 @@ const App = () => {
           onOpenPalette={handleOpenPalette}
         />
 
-        <div className="flex pt-16 sm:pt-20">
+        <div className="flex pt-16 sm:pt-20 min-h-[calc(100vh-64px)]">
           {/* Sidebar */}
           <Sidebar
             navigation={navigation}
@@ -120,7 +124,7 @@ const App = () => {
           />
 
           {/* Main Content */}
-          <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 pb-24 md:pb-8">
+          <main className={`flex-1 min-w-0 flex flex-col ${activeTab === 'unknown' ? '' : 'p-4 sm:p-6 lg:p-8 pb-24 md:pb-8'}`}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -128,6 +132,7 @@ const App = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
+                className="flex-1 flex flex-col"
               >
                 {renderPage()}
               </motion.div>
