@@ -1,5 +1,10 @@
 name: Security Analysis
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 on:
   push:
     branches: [ main, develop, 'feature/*', 'advanced-ai-settings-menu' ]
@@ -164,16 +169,20 @@ jobs:
         path: security-report.md
         
     - name: Comment PR with security report
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
       uses: actions/github-script@v6
       with:
         script: |
           const fs = require('fs');
           const report = fs.readFileSync('security-report.md', 'utf8');
           
-          github.rest.issues.createComment({
+          await github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: report
           });
+
+    - name: Skip PR comment when token lacks permission
+      if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+      run: echo "Skipping PR comment because this pull request comes from a fork or restricted integration context."

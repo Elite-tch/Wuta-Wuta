@@ -106,7 +106,7 @@ describe('ErrorBoundary', () => {
 
     // Rerender with no error
     rerender(
-      <ErrorBoundary>
+      <ErrorBoundary key="retry">
         <ThrowError shouldThrow={false} />
       </ErrorBoundary>
     );
