@@ -2,6 +2,15 @@ use soroban_sdk::{contract, contractimpl, Address, Env, Symbol, String, Vec, Map
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[contracttype]
+pub struct ArtAsset {
+    pub id: u64,
+    pub owner: Address,
+    pub metadata_uri: String,
+    pub royalty_percentage: u32,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+#[contracttype]
 pub struct ArtworkMetadata {
     pub creator: Address,
     pub metadata_url: String,
@@ -25,13 +34,14 @@ impl ArtAssetToken {
         let mut counter: u64 = env.storage().instance().get(&Symbol::new(&env, "counter")).unwrap_or(0);
         counter += 1;
         
-        let metadata = ArtworkMetadata {
-            creator: to.clone(),
-            metadata_url: metadata_url.clone(),
-            content_hash: content_hash.clone(),
+        let metadata = ArtAsset {
+            id: counter,
+            owner: to.clone(),
+            metadata_uri: metadata_url.clone(),
+            royalty_percentage: 500, // default 5%
         };
 
-        let mut artworks: Map<u64, ArtworkMetadata> = env.storage().instance()
+        let mut artworks: Map<u64, ArtAsset> = env.storage().instance()
             .get(&Symbol::new(&env, "artworks"))
             .unwrap_or(Map::new(&env));
         
@@ -49,8 +59,8 @@ impl ArtAssetToken {
         counter
     }
 
-    pub fn get_artwork(env: Env, token_id: u64) -> ArtworkMetadata {
-        let artworks: Map<u64, ArtworkMetadata> = env.storage().instance()
+    pub fn get_artwork(env: Env, token_id: u64) -> ArtAsset {
+        let artworks: Map<u64, ArtAsset> = env.storage().instance()
             .get(&Symbol::new(&env, "artworks"))
             .expect("No artworks stored");
         
