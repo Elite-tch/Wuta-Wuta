@@ -1,0 +1,17 @@
+{
+  "short_name": "Wuta-Wuta",
+  "name": "Wuta-Wuta AI Art Marketplace",
+  "icons": [
+    {
+      "src": "og-default.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#8b5cf6",
+  "background_color": "#000000",
+  "description": "Collaborative AI-Human Art Marketplace",
+  "orientation": "portrait"
+}

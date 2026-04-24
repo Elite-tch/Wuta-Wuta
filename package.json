@@ -22,6 +22,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@drips-network/sdk": "^0.1.0-alpha.15",
     "@stellar/freighter-api": "^6.0.1",
     "@stellar/stellar-sdk": "^14.6.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -52,6 +53,14 @@
     "sharp": "^0.34.5",
     "soroban-client": "^1.0.1",
     "stellar-sdk": "^13.3.0",
+    "workbox-background-sync": "^7.4.0",
+    "workbox-cacheable-response": "^7.4.0",
+    "workbox-core": "^7.4.0",
+    "workbox-expiration": "^7.4.0",
+    "workbox-precaching": "^7.4.0",
+    "workbox-routing": "^7.4.0",
+    "workbox-strategies": "^7.4.0",
+    "workbox-window": "^7.4.0",
     "ws": "^8.20.0",
     "zustand": "^4.4.0"
   },
@@ -63,6 +72,7 @@
     "@storybook/addon-links": "^7.6.0",
     "@storybook/react": "^7.6.0",
     "@storybook/react-webpack5": "^7.6.0",
+    "@tanstack/react-query-devtools": "^5.100.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

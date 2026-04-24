@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { ethers } from 'ethers';
-import { Drips } from '@dripsprotocol/sdk';
+import { Drips } from '@drips-network/sdk';
 
 const useDripsStore = create((set, get) => ({
   // State

@@ -14,6 +14,7 @@ import ThemeProvider from './contexts/ThemeContext';
 import { useWalletStore } from './store/walletStore';
 import { useMuseStore } from './store/museStore';
 import { NotificationContainer } from './components/ui/ToastNotification';
+import OfflineNotice from './components/OfflineNotice';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -124,6 +125,7 @@ const App = () => {
           {renderContent()}
         </main>
       </div>
+      <OfflineNotice />
     </div>
     </ThemeProvider>
   );
