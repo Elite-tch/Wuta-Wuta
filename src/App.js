@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { LayoutDashboard, Image, PlusCircle, History, Sparkles, Settings as SettingsIcon, Send } from 'lucide-react';
+import { LayoutDashboard, Image, PlusCircle, History, Sparkles, Settings as SettingsIcon, Send, Vote } from 'lucide-react';
 
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -14,6 +14,7 @@ import ThemeProvider from './contexts/ThemeContext';
 import { useWalletStore } from './store/walletStore';
 import { useMuseStore } from './store/museStore';
 import { NotificationContainer } from './components/ui/ToastNotification';
+import MuseDAO from './components/MuseDAO';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -56,6 +57,7 @@ const App = () => {
       { id: 'minting', name: 'Minting', icon: Send },
       { id: 'history', name: 'History', icon: History },
       { id: 'ai', name: 'AI Studio', icon: Sparkles },
+      { id: 'dao', name: 'Muse DAO', icon: Vote },
       { id: 'settings', name: 'Settings', icon: SettingsIcon },
     ],
     []
@@ -88,6 +90,8 @@ const App = () => {
         return <ArtMintingStepper />;
       case 'history':
         return <TransactionHistory />;
+      case 'dao':
+        return <MuseDAO />;
       case 'settings':
         return <Settings />;
       default:
